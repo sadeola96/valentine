@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Will You Be My Valentine?</title>
+
+  <!-- Confetti library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    body {
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      position: relative;
+      width: 90%;
+      max-width: 320px;
+      height: 220px;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      color: #ff4d6d;
+      font-size: 22px;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 12px 22px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      position: absolute;
+      touch-action: manipulation;
+    }
+
+    #yes {
+      background-color: #4caf50;
+      color: white;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 25px;
+    }
+
+    #no {
+      background-color: #ff4d4d;
+      color: white;
+      right: 20px;
+      bottom: 25px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="container">
+    <h1>Will you be my Valentine? 💘</h1>
+    <button id="yes">Yes 💖</button>
+    <button id="no">No 💔</button>
+  </div>
+
+  <script>
+    const noButton = document.getElementById("no");
+    const container = document.getElementById("container");
+
+    function moveNoButton() {
+      const containerRect = container.getBoundingClientRect();
+      const buttonRect = noButton.getBoundingClientRect();
+
+      const maxX = containerRect.width - buttonRect.width;
+      const maxY = containerRect.height - buttonRect.height;
+
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+
+      noButton.style.left = randomX + "px";
+      noButton.style.top = randomY + "px";
+    }
+
+    // Desktop
+    noButton.addEventListener("mouseenter", moveNoButton);
+
+    // Mobile
+    noButton.addEventListener("touchstart", moveNoButton);
+
+    document.getElementById("yes").addEventListener("click", () => {
+      confetti({
+        particleCount: 200,
+        spread: 100,
+        origin: { y: 0.6 }
+      });
+
+      setTimeout(() => {
+        document.body.innerHTML = `
+          <div style="
+            height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:#ffb6c1;
+            font-family:'Comic Sans MS', cursive;
+            font-size:32px;
+            color:white;
+            text-align:center;
+            padding:20px;
+          ">
+            YAY!!! 💕🥰<br>
+            Best Valentine Ever 💘🎉
+          </div>
+        `;
+      }, 800);
+    });
+  </script>
+
+</body>
+</html>
